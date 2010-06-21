@@ -8,6 +8,7 @@ The version of GitSharp included is a custom build with some minor changes. Deta
 
 Requirements:
 - VS2010 with .NET 4
-- IIS7
+- ASP.NET MVC2
+- IIS7+
 
 Edit the web.config and change the "RepositoriesDirectory" app-setting to point to a directory containing git repositories.
