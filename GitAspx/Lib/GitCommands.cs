@@ -18,7 +18,7 @@ namespace GitAspx.Lib
 			var commandLine = string.Format(commandLineFormat, args);
 
 			var psi = new ProcessStartInfo("c:\\program files (x86)\\git\\bin\\git.exe", commandLine) {
-				WorkingDirectory = "c:\\projects\\gittest\\repo1",
+				WorkingDirectory = "c:\\projects\\gittest\\simplegit",
 				UseShellExecute = false,
 				RedirectStandardError = true,
 				RedirectStandardOutput = true,
