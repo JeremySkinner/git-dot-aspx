@@ -28,7 +28,7 @@ namespace GitAspx.Controllers {
 				var pack = new ReceivePack(repository);
 				pack.setBiDirectionalPipe(false);
 				// Have to wrap the stream because GitSharp is naugty. 
-				pack.receive(new WrappedStream(Request.InputStream, Response.OutputStream), null);
+				pack.receive(new WrappedStream(Request.InputStream, Response.OutputStream), Response.OutputStream);
 			}
 		}
 
