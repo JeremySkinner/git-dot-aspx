@@ -1,6 +1,7 @@
 namespace GitAspx.Controllers {
 	using System;
 	using System.IO;
+	using GitAspx.Lib;
 	using GitSharp.Core.Transport;
 
 	// Handles project/git-upload-pack and project/git-receive-pack

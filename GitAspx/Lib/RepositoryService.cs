@@ -1,6 +1,5 @@
-namespace GitAspx {
+namespace GitAspx.Lib {
 	using System.IO;
-	using GitAspx.Lib;
 	using GitSharp.Core;
 
 	public class RepositoryService {
