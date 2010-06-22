@@ -10,9 +10,7 @@ namespace GitAspx.Tests {
 
 		[TestFixtureSetUp]
 		public void TestFixtureSetup() {
-			Console.WriteLine(new DirectoryInfo("..\\..\\GitAspx").FullName);
-
-			StartServer("..\\..\\..\\GitAspx");//   "C:\\Projects\\git-dot-aspx\\GitAspx");
+			StartServer("..\\..\\..\\GitAspx");
 		}
 
 		[TestFixtureTearDown]
