@@ -24,6 +24,8 @@ namespace GitAspx {
 			routes.MapRoute("receive-pack", "{project}/git-receive-pack",
 							new { controller = "Rpc", action = "ReceivePack" },
 							new { method = new HttpMethodConstraint("POST") });
+
+			routes.MapRoute("project", "{project}");
 		}
 
 		protected void Application_Start() {
