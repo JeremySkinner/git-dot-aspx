@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitAspx", "GitAspx\GitAspx.csproj", "{3A732219-72CE-49B8-84F6-FE74E3762EE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitAspx.Tests", "GitAspx.Tests\GitAspx.Tests.csproj", "{A1C3A88B-8C35-4677-B83F-E61FEAAD604A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{3A732219-72CE-49B8-84F6-FE74E3762EE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A732219-72CE-49B8-84F6-FE74E3762EE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A732219-72CE-49B8-84F6-FE74E3762EE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1C3A88B-8C35-4677-B83F-E61FEAAD604A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1C3A88B-8C35-4677-B83F-E61FEAAD604A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1C3A88B-8C35-4677-B83F-E61FEAAD604A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1C3A88B-8C35-4677-B83F-E61FEAAD604A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
