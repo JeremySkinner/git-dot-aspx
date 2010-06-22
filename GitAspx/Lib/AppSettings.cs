@@ -12,7 +12,7 @@ namespace GitAspx.Lib {
 				}
 
 				if(! Directory.Exists(path)) {
-					throw new DirectoryNotFoundException("Could not find the directory '{0}' which is configured as the directory of repositories.");
+					throw new DirectoryNotFoundException(string.Format("Could not find the directory '{0}' which is configured as the directory of repositories.", path));
 				}
 
 				return new DirectoryInfo(path);
