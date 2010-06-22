@@ -10,6 +10,8 @@ namespace GitAspx {
 		public static void RegisterRoutes(RouteCollection routes) {
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			routes.MapRoute("DirectoryList", "", new { controller = "DirectoryList", action = "Index" });
+
 			routes.MapRoute("info-refs", "{project}/info/refs", 
 				new {controller = "InfoRefs", action = "Execute"}, 
 				new{ method = new HttpMethodConstraint("GET")});
