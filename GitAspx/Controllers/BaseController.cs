@@ -8,7 +8,7 @@ namespace GitAspx.Controllers
 
 	public class BaseController : Controller
 	{
-		protected readonly AppSettings AppSettings = new AppSettings();
+		public AppSettings AppSettings { get; set; }
 
 		protected string PktFlush() {
 			return "0000";
