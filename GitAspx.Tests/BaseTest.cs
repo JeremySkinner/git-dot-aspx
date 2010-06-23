@@ -1,6 +1,7 @@
 namespace GitAspx.Tests {
 	using System;
 	using System.IO;
+	using System.Net;
 	using System.Web.Configuration;
 	using System.Xml.Linq;
 	using CassiniDev;
@@ -32,6 +33,12 @@ namespace GitAspx.Tests {
 				.Attribute("value").Value = repoDir;
 
 			doc.Save(path);
+		}
+
+		protected HttpWebResponse Get(string url) {
+			url = NormalizeUrl(url);
+			var request = (HttpWebRequest)WebRequest.Create(url);
+			return (HttpWebResponse) request.GetResponse();
 		}
 	}
 }
