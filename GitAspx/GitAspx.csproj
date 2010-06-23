@@ -38,6 +38,9 @@
       <HintPath>..\lib\GitSharp\GitSharp.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="StructureMap">
+      <HintPath>..\lib\structuremap\StructureMap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -83,6 +86,7 @@
     <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="Lib\ForbiddenResult.cs" />
     <Compile Include="Lib\NotFoundResult.cs" />
+    <Compile Include="Lib\StructureMapControllerFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Lib\RepositoryService.cs" />
     <Compile Include="ViewModels\DirectoryListViewModel.cs" />

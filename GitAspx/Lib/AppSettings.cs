@@ -4,47 +4,41 @@ namespace GitAspx.Lib {
 	using System.IO;
 
 	public class AppSettings {
-		public DirectoryInfo RepositoriesDirectory {
-			get {
-				var path = ConfigurationManager.AppSettings["RepositoriesDirectory"];
-				if(string.IsNullOrEmpty(path)) {
-					throw new InvalidOperationException("The 'Repositories' AppSetting has not been initialised.");
-				}
+		public DirectoryInfo RepositoriesDirectory { get; set; }
+		public bool UploadPack { get; set; }
+		public bool ReceivePack { get; set; }
 
-				if(! Directory.Exists(path)) {
-					throw new DirectoryNotFoundException(string.Format("Could not find the directory '{0}' which is configured as the directory of repositories.", path));
-				}
+		public static AppSettings FromAppConfig() {
+			var settings = new AppSettings();
 
-				return new DirectoryInfo(path);
+			var path = ConfigurationManager.AppSettings["RepositoriesDirectory"];
+
+			if (string.IsNullOrEmpty(path)) {
+				throw new InvalidOperationException("The 'Repositories' AppSetting has not been initialised.");
 			}
-		}
 
-		public bool UploadPack {
-			get {
-				var raw = ConfigurationManager.AppSettings["UploadPack"];
-
-				if(string.IsNullOrEmpty(raw)) {
-					return false;
-				}
-
-				bool uploadPack;
-				bool.TryParse(raw, out uploadPack);
-				return uploadPack;
+			if (!Directory.Exists(path)) {
+				throw new DirectoryNotFoundException(string.Format("Could not find the directory '{0}' which is configured as the directory of repositories.", path));
 			}
-		}
 
-		public bool ReceivePack {
-			get {
-				var raw = ConfigurationManager.AppSettings["ReceivePack"];
+			settings.RepositoriesDirectory = new DirectoryInfo(path);
 
-				if (string.IsNullOrEmpty(raw)) {
-					return false;
-				}
 
-				bool receivePack;
-				bool.TryParse(raw, out receivePack);
-				return receivePack;
+			var uploadPackRaw = ConfigurationManager.AppSettings["UploadPack"];
+			var receivePackRaw = ConfigurationManager.AppSettings["ReceivePack"];
+
+			bool uploadpack;
+			bool receivePack;
+
+			if(!string.IsNullOrEmpty(uploadPackRaw) && bool.TryParse(uploadPackRaw, out uploadpack)) {
+				settings.UploadPack = uploadpack;
 			}
+			
+			if(!string.IsNullOrEmpty(receivePackRaw) && bool.TryParse(receivePackRaw, out receivePack)) {
+				settings.ReceivePack = receivePack;
+			}
+
+			return settings;
 		}
 
 	}

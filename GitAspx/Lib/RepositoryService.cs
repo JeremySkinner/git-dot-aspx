@@ -5,7 +5,11 @@ namespace GitAspx.Lib {
 	using GitSharp.Core;
 
 	public class RepositoryService {
-		AppSettings appSettings = new AppSettings();
+		AppSettings appSettings;
+
+		public RepositoryService(AppSettings appSettings) {
+			this.appSettings = appSettings;
+		}
 
 		public IEnumerable<DirectoryInfo> GetAllRepositories() {
 			return appSettings.RepositoriesDirectory.GetDirectories();

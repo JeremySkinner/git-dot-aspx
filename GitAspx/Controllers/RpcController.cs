@@ -7,7 +7,11 @@ namespace GitAspx.Controllers {
 
 	// Handles project/git-upload-pack and project/git-receive-pack
 	public class RpcController : BaseController {
-		RepositoryService repositories = new RepositoryService();
+		RepositoryService repositories;
+
+		public RpcController(RepositoryService repositories) {
+			this.repositories = repositories;
+		}
 
 		public ActionResult UploadPack(string project) {
 			if(!HasAccess(Rpc.UploadPack, checkContentType: true)) {

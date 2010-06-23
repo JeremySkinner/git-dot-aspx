@@ -5,11 +5,16 @@ namespace GitAspx.Controllers {
 
 	// Handles /project/info/refs
 	public class InfoRefsController : BaseController {
-		readonly RepositoryService repositories = new RepositoryService();
+		RepositoryService repositories;
+
+		public InfoRefsController(RepositoryService repositories) {
+			this.repositories = repositories;
+		}
 
 		public ActionResult Execute(string project, string service) {
 			service = service.Replace("git-", "");
 
+			Response.StatusCode = 200;
 			Response.ContentType = string.Format("application/x-git-{0}-advertisement", service);
 			WriteNoCache();
 

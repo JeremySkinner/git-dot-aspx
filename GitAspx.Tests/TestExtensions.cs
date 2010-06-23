@@ -3,6 +3,8 @@ namespace GitAspx.Tests {
 	using System.IO;
 	using System.Net;
 	using System.Text;
+	using System.Web.Mvc;
+	using System.Web.Routing;
 	using NUnit.Framework;
 
 	public static class TestExtensions {
@@ -14,8 +16,8 @@ namespace GitAspx.Tests {
 			StringAssert.Contains(expected, actual);
 		}
 
-		public static string GetString(this HttpWebResponse response) {
-			var reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8);
+		public static string GetString(this Stream stream) {
+			var reader = new StreamReader(stream, Encoding.UTF8);
 			var read = new char[256];
 			int count = reader.Read(read, 0, 256);
 			var sb = new StringBuilder();
@@ -29,8 +31,19 @@ namespace GitAspx.Tests {
 			return sb.ToString();
 		}
 
+		public static string GetString(this HttpWebResponse response) {
+			return response.GetResponseStream().GetString();
+		}
+
 		public static string[] SplitOnNewLine(this string str) {
 			return str.Split(new[] { "\n" }, StringSplitOptions.None);
+		}
+
+		public static T FakeContxt<T>(this T controller) where T:Controller {
+			var context = MockHttpContext.Create();
+			var cc = new ControllerContext(context, new RouteData(), controller);
+			controller.ControllerContext = cc;
+			return controller;
 		}
 	}
 }

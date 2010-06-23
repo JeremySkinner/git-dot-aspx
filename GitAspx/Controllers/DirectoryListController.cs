@@ -5,7 +5,11 @@ namespace GitAspx.Controllers {
 
 	public class DirectoryListController : Controller {
 
-		RepositoryService repositories = new RepositoryService();
+		RepositoryService repositories;
+
+		public DirectoryListController(RepositoryService repositories) {
+			this.repositories = repositories;
+		}
 
 		public ActionResult Index() {
 			return View(new DirectoryListViewModel {
