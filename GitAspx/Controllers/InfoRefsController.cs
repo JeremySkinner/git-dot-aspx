@@ -1,4 +1,5 @@
 namespace GitAspx.Controllers {
+	using System.Web.Mvc;
 	using GitAspx.Lib;
 	using GitSharp.Core.Transport;
 
@@ -6,15 +7,24 @@ namespace GitAspx.Controllers {
 	public class InfoRefsController : BaseController {
 		readonly RepositoryService repositories = new RepositoryService();
 
-		public void Execute(string project, string service) {
+		public ActionResult Execute(string project, string service) {
 			service = service.Replace("git-", "");
 
 			Response.ContentType = string.Format("application/x-git-{0}-advertisement", service);
 			WriteNoCache();
-			Response.Write(PktWrite("# service=git-{0}\n", service));
-			Response.Write(PktFlush());
 
-			using (var repository = repositories.GetRepository(project)) {
+			var repository = repositories.GetRepository(project);
+			
+			if(repository == null) {
+				return new NotFoundResult();
+			}
+
+			using (repository) {
+
+				Response.Write(PktWrite("# service=git-{0}\n", service));
+				Response.Write(PktFlush());
+
+			
 				if (service == "upload-pack") {
 					var pack = new UploadPack(repository);
 					pack.sendAdvertisedRefs(new RefAdvertiser.PacketLineOutRefAdvertiser(new PacketLineOut(Response.OutputStream)));
@@ -25,6 +35,8 @@ namespace GitAspx.Controllers {
 					pack.SendAdvertisedRefs(new RefAdvertiser.PacketLineOutRefAdvertiser(new PacketLineOut(Response.OutputStream)));
 				}
 			}
+
+			return new EmptyResult();
 		}
 	}
 }
