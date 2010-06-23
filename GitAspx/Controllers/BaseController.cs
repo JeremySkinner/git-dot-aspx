@@ -3,8 +3,13 @@ using System.Web.Mvc;
 
 namespace GitAspx.Controllers
 {
+	using System.Linq;
+	using GitAspx.Lib;
+
 	public class BaseController : Controller
 	{
+		protected readonly AppSettings AppSettings = new AppSettings();
+
 		protected string PktFlush() {
 			return "0000";
 		}
@@ -23,6 +28,22 @@ namespace GitAspx.Controllers
 		protected string ReadBody() {
 			var reader = new StreamReader(Request.InputStream);
 			return reader.ReadToEnd();
+		}
+
+		protected bool HasAccess(Rpc rpc, bool checkContentType = false) {
+			if(checkContentType && Request.ContentType != string.Format("application/x-git-{0}-request", rpc.GetDescription())) {
+				return false;
+			}
+
+			if(rpc == Rpc.ReceivePack) {
+				return AppSettings.ReceivePack;
+			}
+
+			if(rpc == Rpc.UploadPack) {
+				return AppSettings.UploadPack;
+			}
+
+			return false;
 		}
 	}
 }

@@ -6,7 +6,7 @@ namespace GitAspx.Tests {
 	using NUnit.Framework;
 
 	public static class TestExtensions {
-		public static void ShouldEqual(this object acutal, object expected) {
+		public static void ShouldEqual<T>(this T acutal, T expected) {
 			Assert.AreEqual(expected, acutal);
 		}
 

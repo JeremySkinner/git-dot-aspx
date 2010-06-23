@@ -18,5 +18,35 @@ namespace GitAspx.Lib {
 				return new DirectoryInfo(path);
 			}
 		}
+
+		public bool UploadPack {
+			get {
+				var raw = ConfigurationManager.AppSettings["UploadPack"];
+
+				if(string.IsNullOrEmpty(raw)) {
+					return false;
+				}
+
+				bool uploadPack;
+				bool.TryParse(raw, out uploadPack);
+				return uploadPack;
+			}
+		}
+
+		public bool ReceivePack {
+			get {
+				var raw = ConfigurationManager.AppSettings["ReceivePack"];
+
+				if (string.IsNullOrEmpty(raw)) {
+					return false;
+				}
+
+				bool receivePack;
+				bool.TryParse(raw, out receivePack);
+				return receivePack;
+			}
+		}
+
 	}
+
 }

@@ -36,9 +36,29 @@ namespace GitAspx.Tests {
 		}
 
 		protected HttpWebResponse Get(string url) {
-			url = NormalizeUrl(url);
-			var request = (HttpWebRequest)WebRequest.Create(url);
-			return (HttpWebResponse) request.GetResponse();
+			try {
+				url = NormalizeUrl(url);
+				var request = (HttpWebRequest)WebRequest.Create(url);
+				return (HttpWebResponse)request.GetResponse();
+			}
+			catch(WebException e) { //wtf, why does WebRequest throw for non-200 status codes?!
+				return (HttpWebResponse) e.Response;
+			}
+		}
+
+		public HttpWebResponse Post(string url, string contentType = null) {
+			try {
+				url = NormalizeUrl(url);
+				var request = (HttpWebRequest)WebRequest.Create(url);
+				if(contentType!=null) {
+					request.ContentType = contentType;
+				}
+				request.Method = "POST";
+				return (HttpWebResponse)request.GetResponse();
+			}
+			catch(WebException e) { 
+				return (HttpWebResponse)e.Response;
+			}
 		}
 	}
 }

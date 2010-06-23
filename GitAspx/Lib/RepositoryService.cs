@@ -15,7 +15,7 @@ namespace GitAspx.Lib {
 			var directory = Path.Combine(appSettings.RepositoriesDirectory.FullName, project);
 
 			if(!Directory.Exists(directory)) {
-				throw new DirectoryNotFoundException(string.Format("Could not find the directory '{0}'", directory));
+				return null;
 			}
 
 			return Repository.Open(directory);

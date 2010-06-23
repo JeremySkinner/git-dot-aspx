@@ -1,6 +1,7 @@
 namespace GitAspx.Controllers {
 	using System;
 	using System.IO;
+	using System.Web.Mvc;
 	using GitAspx.Lib;
 	using GitSharp.Core.Transport;
 
@@ -8,26 +9,51 @@ namespace GitAspx.Controllers {
 	public class RpcController : BaseController {
 		RepositoryService repositories = new RepositoryService();
 
-		public void UploadPack(string project) {
+		public ActionResult UploadPack(string project) {
+			if(!HasAccess(Rpc.UploadPack, checkContentType: true)) {
+				return new ForbiddenResult();
+			}
+
 			Response.ContentType = "application/x-git-upload-pack-result";
 			WriteNoCache();
 
-			using (var repository = repositories.GetRepository(project))
-			using (var pack = new UploadPack(repository)) {
-				pack.setBiDirectionalPipe(false);
-				pack.Upload(Request.InputStream, Response.OutputStream, Response.OutputStream);
+			var repository = repositories.GetRepository(project);
+
+			if(repository == null) {
+				return new NotFoundResult();
 			}
+
+			using (repository) {
+				using (var pack = new UploadPack(repository)) {
+					pack.setBiDirectionalPipe(false);
+					pack.Upload(Request.InputStream, Response.OutputStream, Response.OutputStream);
+				}
+			}
+
+			return new EmptyResult();
 		}
 
-		public void ReceivePack(string project) {
+		public ActionResult ReceivePack(string project) {
+			if (!HasAccess(Rpc.ReceivePack, checkContentType: true)) {
+				return new ForbiddenResult();
+			}
+
 			Response.ContentType = "application/x-git-receive-pack-result";
 			WriteNoCache();
 
-			using (var repository = repositories.GetRepository(project)) {
+			var repository = repositories.GetRepository(project);
+
+			if(repository == null) {
+				return new NotFoundResult();
+			}
+
+			using (repository) {
 				var pack = new ReceivePack(repository);
 				pack.setBiDirectionalPipe(false);
 				pack.receive(Request.InputStream, Response.OutputStream, Response.OutputStream);
 			}
+
+			return new EmptyResult();
 		}
 	}
 }

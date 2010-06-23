@@ -20,5 +20,29 @@ namespace GitAspx.Tests {
 			body.ShouldContain("0000009514bf0836c3371b740ebad55fbda6223bd7940f20 HEAD");
 			body.ShouldContain("multi_ack_detailed");
 		}
+
+		[Test]
+		public void NoAccess_to_UploadPack_when_incorrect_content_type() {
+			var response = Post("test/git-upload-pack");
+			response.StatusCode.ShouldEqual(HttpStatusCode.Forbidden);
+		}
+
+		[Test]
+		public void NoAccess_to_ReceivePack_when_incorrect_content_type() {
+			var response = Post("test/git-receive-pack");
+			response.StatusCode.ShouldEqual(HttpStatusCode.Forbidden);
+		}
+
+		[Test]
+		public void Not_found_when_wrong_http_method() {
+			var response = Get("test/git-receive-pack");
+			response.StatusCode.ShouldEqual(HttpStatusCode.NotFound);
+		}
+
+		[Test]
+		public void Not_found_when_wrong_path() {
+			var response = Post("no-such-project/git-receive-pack", contentType: "application/x-git-receive-pack-request");
+			response.StatusCode.ShouldEqual(HttpStatusCode.NotFound);
+		}
 	}
 }
