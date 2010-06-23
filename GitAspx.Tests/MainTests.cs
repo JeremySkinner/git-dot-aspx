@@ -22,6 +22,20 @@ namespace GitAspx.Tests {
 		}
 
 		[Test]
+		public void Gets_receive_pack_advertisement() {
+			var response = Get("/test/info/refs?service=git-receive-pack");
+			response.StatusCode.ShouldEqual(HttpStatusCode.OK);
+			response.Headers["Content-Type"].ShouldContain("application/x-git-receive-pack-advertisement");
+
+			var body = response.GetString();
+			body.SplitOnNewLine()[0].ShouldEqual("001F# service=git-receive-pack");
+			body.ShouldContain("0000007314bf0836c3371b740ebad55fbda6223bd7940f20 refs/heads/master");
+			body.ShouldContain("report-status");
+			body.ShouldContain("delete-refs");
+			body.ShouldContain("ofs-delta");
+		}
+
+		[Test]
 		public void NoAccess_to_UploadPack_when_incorrect_content_type() {
 			var response = Post("test/git-upload-pack");
 			response.StatusCode.ShouldEqual(HttpStatusCode.Forbidden);
