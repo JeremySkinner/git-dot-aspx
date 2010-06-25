@@ -1,3 +1,23 @@
+#region License
+
+// Copyright 2010 Jeremy Skinner (http://www.jeremyskinner.co.uk)
+//  
+// Licensed under the Apache License, Version 2.0 (the "License"); 
+// you may not use this file except in compliance with the License. 
+// You may obtain a copy of the License at 
+// 
+// http://www.apache.org/licenses/LICENSE-2.0 
+// 
+// Unless required by applicable law or agreed to in writing, software 
+// distributed under the License is distributed on an "AS IS" BASIS, 
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. 
+// See the License for the specific language governing permissions and 
+// limitations under the License.
+// 
+// The latest version of this file can be found at http://github.com/JeremySkinner/git-dot-aspx
+
+#endregion
+
 namespace GitAspx.Tests {
 	using System;
 	using System.Collections;
@@ -7,19 +27,18 @@ namespace GitAspx.Tests {
 	using Moq;
 
 	public class MockHttpContext : Mock<HttpContextBase> {
-
 		readonly Mock<HttpServerUtilityBase> server = new Mock<HttpServerUtilityBase>();
 
 		public MockHttpContext() {
 			HttpRequest = new HttpRequestMock();
 			HttpResponse = new HttpResponseMock();
 
-			Setup(c => c.Request).Returns(this.HttpRequest.Object);
-			Setup(c => c.Response).Returns(this.HttpResponse.Object);
+			Setup(c => c.Request).Returns(HttpRequest.Object);
+			Setup(c => c.Response).Returns(HttpResponse.Object);
 			Setup(x => x.Session).Returns(new MockSessionState());
 			Setup(x => x.Server).Returns(server.Object);
 			Setup(x => x.Items).Returns(new Hashtable());
-			this.SetupProperty(x => x.User);
+			SetupProperty(x => x.User);
 		}
 
 		public HttpRequestMock HttpRequest { get; private set; }
@@ -45,7 +64,6 @@ namespace GitAspx.Tests {
 			Setup(r => r.Form).Returns(form);
 			Setup(x => x.InputStream).Returns(inputStream);
 		}
-
 	}
 
 	public class HttpResponseMock : Mock<HttpResponseBase> {
@@ -57,14 +75,12 @@ namespace GitAspx.Tests {
 			Setup(x => x.OutputStream).Returns(outputStream);
 			SetupProperty(x => x.ContentType);
 			SetupProperty(x => x.StatusCode);
-			Setup(x => x.Write(It.IsAny<string>())).Callback(new Action<string>(s => {
-				writer.Write(s);
-			}));
+			Setup(x => x.Write(It.IsAny<string>())).Callback(new Action<string>(s => { writer.Write(s); }));
 		}
 	}
 
 	public class MockSessionState : HttpSessionStateBase {
-		private Hashtable hash = new Hashtable();
+		readonly Hashtable hash = new Hashtable();
 
 		public override object this[string name] {
 			get { return hash[name]; }
@@ -91,5 +107,4 @@ namespace GitAspx.Tests {
 			hash.Clear();
 		}
 	}
-
 }
