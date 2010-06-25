@@ -1,4 +1,5 @@
 ﻿namespace GitAspx {
+	using System;
 	using System.Web;
 	using System.Web.Mvc;
 	using System.Web.Routing;
@@ -9,6 +10,7 @@
 	public class MvcApplication : HttpApplication {
 		public static void RegisterRoutes(RouteCollection routes) {
 			routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+			routes.IgnoreRoute("favicon.ico");
 
 			routes.MapRoute("DirectoryList", "", new {controller = "DirectoryList", action = "Index"});
 
