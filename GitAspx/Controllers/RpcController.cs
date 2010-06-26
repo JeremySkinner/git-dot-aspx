@@ -51,7 +51,7 @@ namespace GitAspx.Controllers {
 		}
 
 		ActionResult ExecuteRpc(string project, Rpc rpc, Action<Repository> action) {
-			if (!HasAccess(Rpc.UploadPack, checkContentType: true)) {
+			if (!HasAccess(rpc, checkContentType: true)) {
 				return new ForbiddenResult();
 			}
 

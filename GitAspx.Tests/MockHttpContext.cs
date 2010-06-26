@@ -75,7 +75,7 @@ namespace GitAspx.Tests {
 			Setup(x => x.OutputStream).Returns(outputStream);
 			SetupProperty(x => x.ContentType);
 			SetupProperty(x => x.StatusCode);
-			Setup(x => x.Write(It.IsAny<string>())).Callback(new Action<string>(s => { writer.Write(s); }));
+			Setup(x => x.Write(It.IsAny<string>())).Callback(new Action<string>(s => { writer.Write(s); writer.Flush(); }));
 		}
 	}
 

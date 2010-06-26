@@ -31,15 +31,13 @@ namespace GitAspx.Tests {
 		[SetUp]
 		public void Setup() {
 			var dir = new DirectoryInfo("../../Repositories");
-			controller =
-				new InfoRefsController(
-					new RepositoryService(new AppSettings {ReceivePack = true, UploadPack = true, RepositoriesDirectory = dir})).
+			controller = new InfoRefsController(new RepositoryService(new AppSettings {ReceivePack = true, UploadPack = true, RepositoriesDirectory = dir})).
 					FakeContxt();
 		}
 
 		[Test]
 		public void Gets_upload_pack_advertisement() {
-			/*controller.Execute("test", "git-upload-pack");
+			controller.Execute("test", "git-upload-pack");
 			controller.Response.StatusCode.ShouldEqual(200);
 			controller.Response.ContentType.ShouldContain("application/x-git-upload-pack-advertisement");
 
@@ -49,7 +47,6 @@ namespace GitAspx.Tests {
 			body.ShouldContain("0000009514bf0836c3371b740ebad55fbda6223bd7940f20 HEAD");
 			body.ShouldContain("multi_ack_detailed");
 
-*/
 		}
 
 		[Test]

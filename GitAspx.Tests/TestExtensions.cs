@@ -37,6 +37,9 @@ namespace GitAspx.Tests {
 		}
 
 		public static string GetString(this Stream stream) {
+			if(stream.CanSeek) {
+				stream.Position = 0;
+			}
 			var reader = new StreamReader(stream, Encoding.UTF8);
 			var read = new char[256];
 			int count = reader.Read(read, 0, 256);

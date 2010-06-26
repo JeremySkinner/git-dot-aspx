@@ -30,6 +30,7 @@
         </MODIFIERS_ORDER>
         <OTHER_BRACES>END_OF_LINE</OTHER_BRACES>
         <TYPE_DECLARATION_BRACES>END_OF_LINE</TYPE_DECLARATION_BRACES>
+        <WRAP_LINES>False</WRAP_LINES>
       </FormatSettings>
       <UsingsSettings>
         <AddImportsToDeepestScope>True</AddImportsToDeepestScope>
