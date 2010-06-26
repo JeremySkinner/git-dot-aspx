@@ -30,8 +30,7 @@ namespace GitAspx.Tests {
 
 		[SetUp]
 		public void Setup() {
-			var dir = new DirectoryInfo("../../Repositories");
-			controller = new InfoRefsController(new RepositoryService(new AppSettings {ReceivePack = true, UploadPack = true, RepositoriesDirectory = dir})).
+			controller = new InfoRefsController(new RepositoryService(TestExtensions.GetAppSettings())).
 					FakeContxt();
 		}
 
@@ -51,10 +50,25 @@ namespace GitAspx.Tests {
 
 		[Test]
 		public void Gets_receive_pack_advertisement() {
+			controller.Execute("test", "git-receive-pack");
+			controller.Response.StatusCode.ShouldEqual(200);
+
+			controller.Response.ContentType
+				.ShouldContain("application/x-git-receive-pack-advertisement");
+
+			var body = controller.Response.OutputStream.GetString();
+			body.SplitOnNewLine()[0].ShouldEqual("001F# service=git-receive-pack");
+			body.ShouldContain("0000007314bf0836c3371b740ebad55fbda6223bd7940f20 refs/heads/master");
+			body.ShouldContain("report-status");
+			body.ShouldContain("delete-refs");
+			body.ShouldContain("ofs-delta");
+
 		}
 
 		[Test]
 		public void Returns_404_when_repository_not_found() {
+			var result = controller.Execute("NoSuchProject", "git-receive-pack");
+			result.ShouldBe<NotFoundResult>();
 		}
 	}
 }

@@ -69,6 +69,7 @@ namespace GitAspx.Tests {
 	public class HttpResponseMock : Mock<HttpResponseBase> {
 		readonly Stream outputStream = new MemoryStream(new byte[8192]);
 		readonly StreamWriter writer;
+		NameValueCollection headers = new NameValueCollection();
 
 		public HttpResponseMock() {
 			writer = new StreamWriter(outputStream);
@@ -76,6 +77,8 @@ namespace GitAspx.Tests {
 			SetupProperty(x => x.ContentType);
 			SetupProperty(x => x.StatusCode);
 			Setup(x => x.Write(It.IsAny<string>())).Callback(new Action<string>(s => { writer.Write(s); writer.Flush(); }));
+			headers = new NameValueCollection();
+			Setup(x => x.Headers).Returns(headers);
 		}
 	}
 

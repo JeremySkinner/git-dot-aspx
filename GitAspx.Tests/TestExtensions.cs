@@ -25,11 +25,26 @@ namespace GitAspx.Tests {
 	using System.Text;
 	using System.Web.Mvc;
 	using System.Web.Routing;
+	using GitAspx.Lib;
 	using NUnit.Framework;
 
 	public static class TestExtensions {
+
+		public static AppSettings GetAppSettings() {
+			return new AppSettings() {
+				ReceivePack = true,
+				UploadPack = true,
+				RepositoriesDirectory = new DirectoryInfo("../../Repositories")
+			};
+	
+		}
+
 		public static void ShouldEqual<T>(this T acutal, T expected) {
 			Assert.AreEqual(expected, acutal);
+		}
+
+		public static void ShouldBe<T>(this object actual) {
+			Assert.IsInstanceOf<T>(actual);
 		}
 
 		public static void ShouldContain(this string actual, string expected) {
