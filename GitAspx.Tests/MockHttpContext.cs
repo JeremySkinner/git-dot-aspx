@@ -63,6 +63,7 @@ namespace GitAspx.Tests {
 			Setup(r => r.ApplicationPath).Returns("/");
 			Setup(r => r.Form).Returns(form);
 			Setup(x => x.InputStream).Returns(inputStream);
+			SetupProperty(x => x.ContentType);
 		}
 	}
 

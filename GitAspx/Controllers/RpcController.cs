@@ -33,6 +33,7 @@ namespace GitAspx.Controllers {
 			this.repositories = repositories;
 		}
 
+		[HttpPost]
 		public ActionResult UploadPack(string project) {
 			return ExecuteRpc(project, Rpc.UploadPack, repository => {
 				using (var pack = new UploadPack(repository)) {
@@ -42,6 +43,7 @@ namespace GitAspx.Controllers {
 			});
 		}
 
+		[HttpPost]
 		public ActionResult ReceivePack(string project) {
 			return ExecuteRpc(project, Rpc.ReceivePack, repository => {
 				var pack = new ReceivePack(repository);

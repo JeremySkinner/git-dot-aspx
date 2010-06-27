@@ -59,6 +59,7 @@
     <Compile Include="MainTests.cs" />
     <Compile Include="MockHttpContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RpcControllerTests.cs" />
     <Compile Include="TestExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
