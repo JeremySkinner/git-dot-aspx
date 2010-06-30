@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GitSharp">
+      <HintPath>..\lib\GitSharp\GitSharp.dll</HintPath>
+    </Reference>
     <Reference Include="GitSharp.Core, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\GitSharp\GitSharp.Core.dll</HintPath>
@@ -97,6 +100,7 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Scripts\jquery.modal.js" />
+    <Content Include="Views\DirectoryList\Create.aspx" />
     <Content Include="Views\DirectoryList\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

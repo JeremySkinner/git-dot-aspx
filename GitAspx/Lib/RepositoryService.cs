@@ -22,6 +22,7 @@ namespace GitAspx.Lib {
 	using System.Collections.Generic;
 	using System.IO;
 	using GitSharp.Core;
+	using GitSharp.Commands;
 
 	public class RepositoryService {
 		readonly AppSettings appSettings;
@@ -46,6 +47,21 @@ namespace GitAspx.Lib {
 
 		public DirectoryInfo GetRepositoriesDirectory() {
 			return appSettings.RepositoriesDirectory;
+		}
+
+		public void CreateRepository(string project) {
+			var directory = Path.Combine(appSettings.RepositoriesDirectory.FullName, project + ".git");
+
+			if (!Directory.Exists(directory)) {
+				Directory.CreateDirectory(directory);
+
+				var cmd = new InitCommand {
+					GitDirectory = directory,
+					Quiet = false,
+					Bare = true
+				};
+				cmd.Execute();
+			}
 		}
 	}
 }

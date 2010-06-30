@@ -36,5 +36,15 @@ namespace GitAspx.Controllers {
 			                                       	Directories = repositories.GetAllRepositories()
 			                                       });
 		}
+
+		public ActionResult Create() {
+			return View();
+		}
+
+		[HttpPost]
+		public ActionResult Create(string project) {
+			repositories.CreateRepository(project);
+			return RedirectToAction("Index");
+		}
 	}
 }
