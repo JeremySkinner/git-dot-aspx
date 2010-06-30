@@ -32,9 +32,9 @@ namespace GitAspx.Controllers {
 
 		public ActionResult Index() {
 			return View(new DirectoryListViewModel {
-			                                       	RepositoriesDirectory = repositories.GetRepositoriesDirectory().FullName,
-			                                       	Directories = repositories.GetAllRepositories()
-			                                       });
+				RepositoriesDirectory = repositories.GetRepositoriesDirectory().FullName,
+				Directories = repositories.GetAllRepositories()
+			});
 		}
 
 		public ActionResult Create() {
@@ -43,7 +43,9 @@ namespace GitAspx.Controllers {
 
 		[HttpPost]
 		public ActionResult Create(string project) {
-			repositories.CreateRepository(project);
+			if (!string.IsNullOrEmpty(project)) {
+				repositories.CreateRepository(project);
+			}
 			return RedirectToAction("Index");
 		}
 	}
