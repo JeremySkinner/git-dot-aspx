@@ -14,7 +14,7 @@
 		<% } %>
 	</ul>
 
-	<a href="<%: Url.ProjectUrl("Create") %>">Create a new bare repository</a>
+	<%: Html.ActionLink("Create a new bare repository", "Create") %>
 
 	<div class="jqmWindow" id="dialog">
 		<a href="#" class="jqmClose">Close</a>
