@@ -6,6 +6,8 @@
 <asp:Content runat="server" ID="Main" ContentPlaceHolderID="MainContent">
 	<h1><%: Model.RepositoriesDirectory %></h1>
 
+	<%: Html.ActionLink("Create a new bare repository", "Create") %>
+
 	<ul id="repositories">
 		<% foreach (var directory in Model.Directories) { %>
 			<li>
@@ -13,8 +15,6 @@
 			</li>
 		<% } %>
 	</ul>
-
-	<%: Html.ActionLink("Create a new bare repository", "Create") %>
 
 	<div class="jqmWindow" id="dialog">
 		<a href="#" class="jqmClose">Close</a>
