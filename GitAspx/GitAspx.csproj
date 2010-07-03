@@ -95,6 +95,10 @@
     <Compile Include="ViewModels\DirectoryListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\IE7-override.css" />
+    <Content Include="Content\images\add.png" />
+    <Content Include="Content\images\bullet.png" />
+    <Content Include="Content\images\close.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />

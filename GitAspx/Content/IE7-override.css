@@ -1,0 +1,8 @@
+﻿.jqmWindow div.content {
+	margin:20px;
+}
+
+a.jqmClose { 
+	float:right;
+	margin:-18px 3px 2px 0;
+}
