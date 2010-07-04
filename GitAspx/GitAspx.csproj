@@ -105,7 +105,6 @@
     <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.4.1.min.js" />
     <Content Include="Scripts\jquery.modal.js" />
-    <Content Include="Views\DirectoryList\Create.aspx" />
     <Content Include="Views\DirectoryList\Index.aspx" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

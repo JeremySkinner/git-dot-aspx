@@ -37,10 +37,6 @@ namespace GitAspx.Controllers {
 			});
 		}
 
-		public ActionResult Create() {
-			return View();
-		}
-
 		[HttpPost]
 		public ActionResult Create(string project) {
 			if (!string.IsNullOrEmpty(project)) {
