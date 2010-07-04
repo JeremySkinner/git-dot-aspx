@@ -17,6 +17,9 @@
         <asp:ContentPlaceHolder ID="MainContent" runat="server">
         
         </asp:ContentPlaceHolder>
+		<div id="footer">
+			<a href="http://github.com/JeremySkinner/git-dot-aspx">Powered by GitAspx</a>
+		</div>
     </div>
 </body>
 </html>

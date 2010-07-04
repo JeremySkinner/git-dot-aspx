@@ -22,6 +22,7 @@ namespace GitAspx.Controllers {
 	using System.Web.Mvc;
 	using GitAspx.Lib;
 	using GitAspx.ViewModels;
+	using System.Linq;
 
 	public class DirectoryListController : Controller {
 		readonly RepositoryService repositories;
@@ -33,7 +34,7 @@ namespace GitAspx.Controllers {
 		public ActionResult Index() {
 			return View(new DirectoryListViewModel {
 				RepositoriesDirectory = repositories.GetRepositoriesDirectory().FullName,
-				Repositories = repositories.GetAllRepositories()
+				Repositories = repositories.GetAllRepositories().Select(x => new RepositoryViewModel(x))
 			});
 		}
 

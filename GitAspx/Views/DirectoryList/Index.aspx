@@ -15,7 +15,10 @@
 		<ul id="repositories">
 			<% foreach (var repository in Model.Repositories) { %>
 				<li>
-					<a class="repository" href="javascript:void(0)" title="<%: Url.ProjectUrl(repository.Name) %>"><%: repository.Name %></a>
+					<a class="repository" href="javascript:void(0)" title="<%: Url.ProjectUrl(repository.Name) %>">
+						<%: repository.Name %>
+						<span class="latest-commit"><%= repository.LatestCommitInfo %></span>
+					</a>
 				</li>
 			<% } %>
 		</ul>
@@ -23,14 +26,14 @@
 	</div>
 
 	<div class="jqmWindow" id="dialog">
-		<div class="title">Clone the repository using this command <a href="#" class="jqmClose"><img src="../../Content/images/close.png" alt="Close" /></a></div>		
+		<div class="title">Clone the repository using this command <a href="#" class="jqmClose"><img src="<%: Url.Content("~/Content/images/close.png") %>" alt="Close" /></a></div>		
 		<div class="content">			
 			<pre>git clone <input type="text" id="repository-url" /></pre>
 		</div>
 	</div>
 
 	<div class="jqmWindow" id="createRepositoryDialog">
-		<div class="title">Create a new repository <a href="#" class="jqmClose"><img src="../../Content/images/close.png" alt="Close" /></a></div>		
+		<div class="title">Create a new repository <a href="#" class="jqmClose"><img src="<%: Url.Content("~/Content/images/close.png") %>" alt="Close" /></a></div>		
 		<div class="content">
 		<% using (Html.BeginForm("Create", "DirectoryList")) { %>
 

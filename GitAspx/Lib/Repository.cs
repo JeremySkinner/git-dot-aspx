@@ -1,4 +1,5 @@
 namespace GitAspx.Lib {
+	using System;
 	using System.IO;
 	using GitSharp.Core.Transport;
 
@@ -40,6 +41,21 @@ namespace GitAspx.Lib {
 			}
 		}
 
+		public CommitInfo GetLatestCommit() {
+			using(var repository = new GitSharp.Repository(FullPath)) {
+				var commit = repository.Head.CurrentCommit;
+
+				if(commit == null) {
+					return null;
+				}
+
+				return new CommitInfo {
+					Message = commit.Message,
+					Date = commit.CommitDate.DateTime
+				};
+			}
+		}
+
 		private GitSharp.Core.Repository GetRepository() {
 			return GitSharp.Core.Repository.Open(directory);
 		}
@@ -51,5 +67,10 @@ namespace GitAspx.Lib {
 		public string FullPath {
 			get { return directory.FullName; }
 		}
+	}
+
+	public class CommitInfo {
+		public string Message { get; set; }
+		public DateTime Date { get; set; }
 	}
 }

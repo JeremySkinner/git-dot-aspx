@@ -15,7 +15,7 @@ body {
 	padding:0; 
 }
 
-.repositoryContainer { 
+.repositoryContainer, #footer { 
 	width:750px; 
 	margin:50px auto; 
 	overflow:hidden;
@@ -93,6 +93,22 @@ ul#repositories li a:hover {
 	-webkit-border-top-left-radius:0;
 	border-top-left-radius:0;
 }
+
+.latest-commit {
+	color: #808080;
+	font-size: smaller;
+}
+
+#footer {
+	text-align: center;
+	font-size: smaller;
+}
+
+#footer a {
+	color: #5b5b5b;
+}
+
+
 	
 /* jqModal base Styling courtesy of;
 	Brice Burgess <bhb@iceburg.net> */
