@@ -25,6 +25,6 @@ namespace GitAspx.ViewModels {
 
 	public class DirectoryListViewModel {
 		public string RepositoriesDirectory { get; set; }
-		public IEnumerable<Repository> Directories { get; set; }
+		public IEnumerable<Repository> Repositories { get; set; }
 	}
 }

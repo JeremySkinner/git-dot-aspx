@@ -33,7 +33,7 @@ namespace GitAspx.Controllers {
 		public ActionResult Index() {
 			return View(new DirectoryListViewModel {
 				RepositoriesDirectory = repositories.GetRepositoriesDirectory().FullName,
-				Directories = repositories.GetAllRepositories()
+				Repositories = repositories.GetAllRepositories()
 			});
 		}
 

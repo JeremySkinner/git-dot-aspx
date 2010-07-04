@@ -13,9 +13,9 @@
 		<div class="clear"></div>
 
 		<ul id="repositories">
-			<% foreach (var directory in Model.Directories) { %>
+			<% foreach (var repository in Model.Repositories) { %>
 				<li>
-					<a class="repository" href="javascript:void(0)" title="<%: Url.ProjectUrl(directory.Name) %>"><%: directory.Name %></a>
+					<a class="repository" href="javascript:void(0)" title="<%: Url.ProjectUrl(repository.Name) %>"><%: repository.Name %></a>
 				</li>
 			<% } %>
 		</ul>

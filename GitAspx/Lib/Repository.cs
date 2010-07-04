@@ -43,5 +43,13 @@ namespace GitAspx.Lib {
 		private GitSharp.Core.Repository GetRepository() {
 			return GitSharp.Core.Repository.Open(directory);
 		}
+
+		public string Name {
+			get { return directory.Name; }
+		}
+
+		public string FullPath {
+			get { return directory.FullName; }
+		}
 	}
 }
