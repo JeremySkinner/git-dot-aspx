@@ -17,4 +17,4 @@ target deploy:
   msbuild(file: project_file, configuration: "release", version: "4", targets: ("_CopyWebApplication",), properties: { "OutDir": "../build/" }, verbosity: "normal")
 
 target package:
-  pass
+  zip("Build/_PublishedWebsites/Gitaspx", "Build/GitAspx.zip")
