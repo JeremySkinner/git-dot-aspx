@@ -6,6 +6,14 @@ namespace GitAspx.Lib {
 	public class Repository {
 		private DirectoryInfo directory;
 
+		public static Repository Open(DirectoryInfo directory) {
+			if(GitSharp.Repository.IsValid(directory.FullName)) {
+				return new Repository(directory);
+			}
+
+			return null;
+		}
+
 		public Repository(DirectoryInfo directory) {
 			this.directory = directory;
 		}

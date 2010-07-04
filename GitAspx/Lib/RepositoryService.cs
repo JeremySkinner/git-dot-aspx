@@ -34,7 +34,8 @@ namespace GitAspx.Lib {
 		public IEnumerable<Repository> GetAllRepositories() {
 			return appSettings.RepositoriesDirectory
 				.GetDirectories()
-				.Select(x => new Repository(x))
+				.Select(Repository.Open)
+				.Where(x => x!=null)
 				.ToList();
 		}
 
