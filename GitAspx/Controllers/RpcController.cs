@@ -22,8 +22,6 @@ namespace GitAspx.Controllers {
 	using System;
 	using System.Web.Mvc;
 	using GitAspx.Lib;
-	using GitSharp.Core;
-	using GitSharp.Core.Transport;
 
 	// Handles project/git-upload-pack and project/git-receive-pack
 	public class RpcController : BaseController {
@@ -36,19 +34,14 @@ namespace GitAspx.Controllers {
 		[HttpPost]
 		public ActionResult UploadPack(string project) {
 			return ExecuteRpc(project, Rpc.UploadPack, repository => {
-				using (var pack = new UploadPack(repository)) {
-					pack.setBiDirectionalPipe(false);
-					pack.Upload(Request.InputStream, Response.OutputStream, Response.OutputStream);
-				}
+				repository.Upload(Request.InputStream, Response.OutputStream);
 			});
 		}
 
 		[HttpPost]
 		public ActionResult ReceivePack(string project) {
 			return ExecuteRpc(project, Rpc.ReceivePack, repository => {
-				var pack = new ReceivePack(repository);
-				pack.setBiDirectionalPipe(false);
-				pack.receive(Request.InputStream, Response.OutputStream, Response.OutputStream);
+				repository.Receive(Request.InputStream, Response.OutputStream);
 			});
 		}
 
@@ -66,9 +59,7 @@ namespace GitAspx.Controllers {
 				return new NotFoundResult();
 			}
 
-			using (repository) {
-				action(repository);
-			}
+			action(repository);
 
 			return new EmptyResult();
 		}

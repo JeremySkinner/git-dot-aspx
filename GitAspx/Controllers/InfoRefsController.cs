@@ -44,20 +44,15 @@ namespace GitAspx.Controllers {
 				return new NotFoundResult();
 			}
 
-			using (repository) {
-				Response.Write(PktWrite("# service=git-{0}\n", service));
-				Response.Write(PktFlush());
+			Response.Write(PktWrite("# service=git-{0}\n", service));
+			Response.Write(PktFlush());
 
+			if (service == "upload-pack") {
+				repository.AdvertiseUploadPack(Response.OutputStream);
+			}
 
-				if (service == "upload-pack") {
-					var pack = new UploadPack(repository);
-					pack.sendAdvertisedRefs(new RefAdvertiser.PacketLineOutRefAdvertiser(new PacketLineOut(Response.OutputStream)));
-				}
-
-				else if (service == "receive-pack") {
-					var pack = new ReceivePack(repository);
-					pack.SendAdvertisedRefs(new RefAdvertiser.PacketLineOutRefAdvertiser(new PacketLineOut(Response.OutputStream)));
-				}
+			else if (service == "receive-pack") {
+				repository.AdvertiseReceivePack(Response.OutputStream);
 			}
 
 			return new EmptyResult();

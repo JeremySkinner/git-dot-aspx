@@ -35,6 +35,9 @@
     <Reference Include="CassiniDev4-lib">
       <HintPath>..\lib\cassinidev\CassiniDev4-lib.dll</HintPath>
     </Reference>
+    <Reference Include="GitSharp.Core">
+      <HintPath>..\lib\GitSharp\GitSharp.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Moq">
       <HintPath>..\lib\moq\Moq.dll</HintPath>
     </Reference>

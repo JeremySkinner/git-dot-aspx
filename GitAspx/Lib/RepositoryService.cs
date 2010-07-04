@@ -21,8 +21,8 @@
 namespace GitAspx.Lib {
 	using System.Collections.Generic;
 	using System.IO;
-	using GitSharp.Core;
 	using GitSharp.Commands;
+	using System.Linq;
 
 	public class RepositoryService {
 		readonly AppSettings appSettings;
@@ -31,8 +31,11 @@ namespace GitAspx.Lib {
 			this.appSettings = appSettings;
 		}
 
-		public IEnumerable<DirectoryInfo> GetAllRepositories() {
-			return appSettings.RepositoriesDirectory.GetDirectories();
+		public IEnumerable<Repository> GetAllRepositories() {
+			return appSettings.RepositoriesDirectory
+				.GetDirectories()
+				.Select(x => new Repository(x))
+				.ToList();
 		}
 
 		public Repository GetRepository(string project) {
@@ -42,7 +45,8 @@ namespace GitAspx.Lib {
 				return null;
 			}
 
-			return Repository.Open(directory);
+			//return Repository.Open(directory);
+			return new Repository(new DirectoryInfo(directory));
 		}
 
 		public DirectoryInfo GetRepositoriesDirectory() {
