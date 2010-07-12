@@ -20,6 +20,7 @@
 
 namespace GitAspx.Controllers {
 	using System;
+	using System.IO;
 	using System.Web.Mvc;
 	using GitAspx.Lib;
 	using ICSharpCode.SharpZipLib.GZip;
@@ -35,15 +36,22 @@ namespace GitAspx.Controllers {
 		[HttpPost]
 		public ActionResult UploadPack(string project) {
 			return ExecuteRpc(project, Rpc.UploadPack, repository => {
-				repository.Upload(new GZipInputStream(Request.InputStream), Response.OutputStream);
+				repository.Upload(GetInputStream(), Response.OutputStream);
 			});
 		}
 
 		[HttpPost]
 		public ActionResult ReceivePack(string project) {
 			return ExecuteRpc(project, Rpc.ReceivePack, repository => {
-				repository.Receive(new GZipInputStream(Request.InputStream), Response.OutputStream);
+				repository.Receive(GetInputStream(), Response.OutputStream);
 			});
+		}
+
+		private Stream GetInputStream() {
+			if(Request.Headers["Content-Encoding"] == "gzip") {
+				return new GZipInputStream(Request.InputStream);
+			}
+			return Request.InputStream;
 		}
 
 		ActionResult ExecuteRpc(string project, Rpc rpc, Action<Repository> action) {
