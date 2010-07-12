@@ -22,6 +22,7 @@ namespace GitAspx.Controllers {
 	using System;
 	using System.Web.Mvc;
 	using GitAspx.Lib;
+	using ICSharpCode.SharpZipLib.GZip;
 
 	// Handles project/git-upload-pack and project/git-receive-pack
 	public class RpcController : BaseController {
@@ -34,14 +35,14 @@ namespace GitAspx.Controllers {
 		[HttpPost]
 		public ActionResult UploadPack(string project) {
 			return ExecuteRpc(project, Rpc.UploadPack, repository => {
-				repository.Upload(Request.InputStream, Response.OutputStream);
+				repository.Upload(new GZipInputStream(Request.InputStream), Response.OutputStream);
 			});
 		}
 
 		[HttpPost]
 		public ActionResult ReceivePack(string project) {
 			return ExecuteRpc(project, Rpc.ReceivePack, repository => {
-				repository.Receive(Request.InputStream, Response.OutputStream);
+				repository.Receive(new GZipInputStream(Request.InputStream), Response.OutputStream);
 			});
 		}
 
