@@ -1,6 +1,9 @@
 namespace GitAspx.Lib {
 	using System;
+	using System.Collections.Generic;
 	using System.IO;
+	using System.Linq;
+	using System.Text;
 	using GitSharp.Core;
 	using GitSharp.Core.Transport;
 
@@ -91,9 +94,40 @@ namespace GitAspx.Lib {
 					RefWriter rw = new MockRefWriter(rep, rep.getAllRefs().Values);
 					rw.writePackedRefs();
 					rw.writeInfoRefs();
-				}
 
+					var packs = GetPackRefs(rep);
+					WriteInfoPacks(packs, rep);
+				}
 			}
+		}
+
+		private void WriteInfoPacks(IEnumerable<string> packs, GitSharp.Core.Repository repository) {
+
+			var w = new StringBuilder();
+
+			foreach (string pack in packs) {
+				w.Append("P ");
+				w.Append(pack);
+				w.Append('\n');
+			}
+
+			var infoPacksPath = Path.Combine(repository.ObjectsDirectory.FullName, "info/packs");
+			var encoded = Encoding.ASCII.GetBytes(w.ToString());
+
+
+			using (Stream fs = File.Create(infoPacksPath)) {
+				fs.Write(encoded, 0, encoded.Length);
+			}
+		}
+
+		private IEnumerable<string> GetPackRefs(GitSharp.Core.Repository repository) {
+			var packDir = repository.ObjectsDirectory.GetDirectories().SingleOrDefault(x => x.Name == "pack");
+
+			if(packDir == null) {
+				return Enumerable.Empty<string>();
+			}
+
+			return packDir.GetFiles("*.pack").Select(x => x.Name).ToList();
 		}
 	}
 
