@@ -1,13 +1,14 @@
 namespace GitAspx.Lib {
 	using System;
 	using System.IO;
+	using GitSharp.Core;
 	using GitSharp.Core.Transport;
 
 	public class Repository {
 		private DirectoryInfo directory;
 
 		public static Repository Open(DirectoryInfo directory) {
-			if(GitSharp.Repository.IsValid(directory.FullName)) {
+			if (GitSharp.Repository.IsValid(directory.FullName)) {
 				return new Repository(directory);
 			}
 
@@ -33,7 +34,7 @@ namespace GitAspx.Lib {
 		}
 
 		public void Receive(Stream inputStream, Stream outputStream) {
-			using(var repository = GetRepository()) {
+			using (var repository = GetRepository()) {
 				var pack = new ReceivePack(repository);
 				pack.setBiDirectionalPipe(false);
 				pack.receive(inputStream, outputStream, outputStream);
@@ -50,10 +51,10 @@ namespace GitAspx.Lib {
 		}
 
 		public CommitInfo GetLatestCommit() {
-			using(var repository = new GitSharp.Repository(FullPath)) {
+			using (var repository = new GitSharp.Repository(FullPath)) {
 				var commit = repository.Head.CurrentCommit;
 
-				if(commit == null) {
+				if (commit == null) {
 					return null;
 				}
 
@@ -74,6 +75,25 @@ namespace GitAspx.Lib {
 
 		public string FullPath {
 			get { return directory.FullName; }
+		}
+
+		public string GitDirectory() {
+			if(FullPath.EndsWith(".git", StringComparison.OrdinalIgnoreCase)) {
+				return FullPath;
+			}
+
+			return Path.Combine(FullPath, ".git");
+		}
+
+		public void UpdateServerInfo() {
+			using (var rep = GetRepository()) {
+				if (rep.ObjectDatabase is ObjectDirectory) {
+					RefWriter rw = new MockRefWriter(rep, rep.getAllRefs().Values);
+					rw.writePackedRefs();
+					rw.writeInfoRefs();
+				}
+
+			}
 		}
 	}
 

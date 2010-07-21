@@ -80,6 +80,7 @@
   <ItemGroup>
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DirectoryListController.cs" />
+    <Compile Include="Controllers\DumbController.cs" />
     <Compile Include="Controllers\InfoRefsController.cs" />
     <Compile Include="Controllers\Rpc.cs" />
     <Compile Include="Controllers\RpcController.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Helpers.cs" />
     <Compile Include="Lib\AppSettings.cs" />
     <Compile Include="Lib\ForbiddenResult.cs" />
+    <Compile Include="Lib\MockRefWriter.cs" />
     <Compile Include="Lib\NotFoundResult.cs" />
     <Compile Include="Lib\Repository.cs" />
     <Compile Include="Lib\StructureMapControllerFactory.cs" />
