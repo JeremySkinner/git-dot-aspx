@@ -78,11 +78,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DirectoryListController.cs" />
     <Compile Include="Controllers\DumbController.cs" />
     <Compile Include="Controllers\InfoRefsController.cs" />
-    <Compile Include="Controllers\Rpc.cs" />
     <Compile Include="Controllers\RpcController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

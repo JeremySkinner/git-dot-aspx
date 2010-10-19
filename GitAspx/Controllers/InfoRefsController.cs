@@ -19,9 +19,9 @@
 #endregion
 
 namespace GitAspx.Controllers {
+	using System.IO;
 	using System.Web.Mvc;
 	using GitAspx.Lib;
-	using GitSharp.Core.Transport;
 
 	// Handles /project/info/refs
 	public class InfoRefsController : BaseController {
@@ -32,11 +32,21 @@ namespace GitAspx.Controllers {
 		}
 
 		public ActionResult Execute(string project, string service) {
-			service = service.Replace("git-", "");
+			service = GetServiceType(service);
+			bool isUsingSmartProtocol = service != null;
 
-			Response.StatusCode = 200;
-			Response.ContentType = string.Format("application/x-git-{0}-advertisement", service);
-			WriteNoCache();
+			// Service has been specified - we're working with the smart protocol
+			if(isUsingSmartProtocol) {
+				return SmartInfoRefs(service, project);
+			}
+
+			// working with the dumb protocol.
+			return DumbInfoRefs(project);
+		}
+
+		ActionResult SmartInfoRefs(string service, string project) {
+			Response.ContentType = "application/x-git-{0}-advertisement".With(service);
+			Response.WriteNoCache();
 
 			var repository = repositories.GetRepository(project);
 
@@ -55,6 +65,17 @@ namespace GitAspx.Controllers {
 				repository.AdvertiseReceivePack(Response.OutputStream);
 			}
 
+			return new EmptyResult();
+		}
+
+		ActionResult DumbInfoRefs(string project) {
+			Response.WriteNoCache();
+
+			Response.ContentType = "text/plain; charset=utf-8";
+			var repository = repositories.GetRepository(project);
+
+			repository.UpdateServerInfo();
+			Response.WriteFile(Path.Combine(repository.GitDirectory(), "info/refs"));
 			return new EmptyResult();
 		}
 	}

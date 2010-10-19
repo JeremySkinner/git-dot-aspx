@@ -1,4 +1,5 @@
 namespace GitAspx.Controllers {
+	using System;
 	using System.IO;
 	using System.Web.Mvc;
 	using GitAspx.Lib;
@@ -11,42 +12,27 @@ namespace GitAspx.Controllers {
 		}
 
 		public ActionResult GetTextFile(string project) {
-			WriteNoCache();
 			return WriteFile(project, "text/plain");
 		}
 
 		public ActionResult GetInfoPacks(string project) {
-			WriteNoCache();
 			return WriteFile(project, "text/plain; charset=utf-8");
 		}
 
 		public ActionResult GetLooseObject(string project) {
-			WriteNoCache();
 			return WriteFile(project, "application/x-git-loose-object");
 		}
 
 		public ActionResult GetPackFile(string project) {
-			WriteNoCache();
 			return WriteFile(project, "application/x-git-packed-objects");
 		}
 
 		public ActionResult GetIdxFile(string project) {
-			WriteNoCache();
 			return WriteFile(project, "application/x-git-packed-objects-toc");
 		}
 
-		public ActionResult InfoRefs(string project) {
-			WriteNoCache();
-
-			Response.ContentType = "text/plain; charset=utf-8";
-			var repository = repositories.GetRepository(project);
-
-			repository.UpdateServerInfo();
-			Response.WriteFile(Path.Combine(repository.GitDirectory(), "info/refs"));
-			return new EmptyResult();
-		}
-
 		private ActionResult WriteFile(string project, string contentType) {
+			Response.WriteNoCache();
 			Response.ContentType = contentType;
 			var repo = repositories.GetRepository(project);
 

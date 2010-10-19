@@ -21,6 +21,7 @@
 namespace GitAspx {
 	using System;
 	using System.ComponentModel;
+	using System.Web;
 	using System.Web.Mvc;
 	using System.Web.Routing;
 
@@ -77,6 +78,16 @@ namespace GitAspx {
 				return string.Format("{0} weeks ago", Math.Ceiling((double)dayDiff / 7));
 
 			return null;
+		}
+
+		public static string With(this string format, params string[] args) {
+			return string.Format(format, args);
+		}
+
+		public static void WriteNoCache(this HttpResponseBase response) {
+			response.AddHeader("Expires", "Fri, 01 Jan 1980 00:00:00 GMT");
+			response.AddHeader("Pragma", "no-cache");
+			response.AddHeader("Cache-Control", "no-cache, max-age=0, must-revalidate");
 		}
 	}
 }
