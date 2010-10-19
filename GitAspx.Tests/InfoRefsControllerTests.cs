@@ -36,13 +36,12 @@ namespace GitAspx.Tests {
 
 		[Test]
 		public void Gets_upload_pack_advertisement() {
-			controller.Execute("test", "git-upload-pack");
-			controller.Response.StatusCode.ShouldEqual(200);
+			controller.Execute("test.git", "git-upload-pack");
 			controller.Response.ContentType.ShouldContain("application/x-git-upload-pack-advertisement");
 
 			var body = controller.Response.OutputStream.GetString();
 
-			body.SplitOnNewLine()[0].ShouldEqual("001E# service=git-upload-pack");
+			body.SplitOnNewLine()[0].ShouldEqual("001e# service=git-upload-pack");
 			body.ShouldContain("0000009514bf0836c3371b740ebad55fbda6223bd7940f20 HEAD");
 			body.ShouldContain("multi_ack_detailed");
 
@@ -50,14 +49,13 @@ namespace GitAspx.Tests {
 
 		[Test]
 		public void Gets_receive_pack_advertisement() {
-			controller.Execute("test", "git-receive-pack");
-			controller.Response.StatusCode.ShouldEqual(200);
+			controller.Execute("test.git", "git-receive-pack");
 
 			controller.Response.ContentType
 				.ShouldContain("application/x-git-receive-pack-advertisement");
 
 			var body = controller.Response.OutputStream.GetString();
-			body.SplitOnNewLine()[0].ShouldEqual("001F# service=git-receive-pack");
+			body.SplitOnNewLine()[0].ShouldEqual("001f# service=git-receive-pack");
 			body.ShouldContain("0000007314bf0836c3371b740ebad55fbda6223bd7940f20 refs/heads/master");
 			body.ShouldContain("report-status");
 			body.ShouldContain("delete-refs");

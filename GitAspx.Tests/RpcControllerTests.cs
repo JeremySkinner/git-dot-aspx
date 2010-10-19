@@ -18,13 +18,13 @@ namespace GitAspx.Tests {
 
 		[Test]
 		public void NoAccess_to_UploadPack_when_incorrect_content_type() {
-			var result = controller.UploadPack("test");
+			var result = controller.UploadPack("test.git");
 			result.ShouldBe<ForbiddenResult>();
 		}
 
 		[Test]
 		public void NoAccess_to_ReceivePack_when_incorrect_content_type() {
-			var result = controller.ReceivePack("test");
+			var result = controller.ReceivePack("test.git");
 			result.ShouldBe<ForbiddenResult>();
 		}
 

@@ -80,6 +80,10 @@ namespace GitAspx.Controllers {
 			Response.ContentType = "text/plain; charset=utf-8";
 			var repository = repositories.GetRepository(project);
 
+			if(repository == null) {
+				return new NotFoundResult();
+			}
+
 			repository.UpdateServerInfo();
 			Response.WriteFile(Path.Combine(repository.GitDirectory(), "info/refs"));
 			return new EmptyResult();
