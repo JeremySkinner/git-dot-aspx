@@ -9,6 +9,8 @@ namespace GitAspx.Lib {
 	using GitSharp.Core.Transport;
 	using GitSharp.Core.Util;
 
+	// Modified code from GitSharp
+
 	public class MockRefWriter : RefWriter {
 		private readonly global::GitSharp.Core.Repository _db;
 
@@ -112,71 +114,8 @@ namespace GitAspx.Lib {
 
 		}
 
-		public IDictionary<string, Ref> ReadAdvertisedRefs() {
-			/*try {
-				using (StreamReader br = openReader(INFO_REFS)) {
-					return ReadAdvertisedImpl(br);
-				}
-			}
-			catch (IOException err) {
-				try {
-					throw new TransportException(new Uri(_objectsUrl, INFO_REFS) + ": cannot Read available refs", err);
-				}
-				catch (UriFormatException) {
-					throw new TransportException(_objectsUrl + INFO_REFS + ": cannot Read available refs", err);
-				}
-			}*/
-			throw new NotImplementedException();
-		}
-
-		/*private static IDictionary<string, Ref> ReadAdvertisedImpl(TextReader br) {
-			var avail = new SortedDictionary<string, Ref>();
-
-			while (true) {
-				string line = br.ReadLine();
-				if (line == null) break;
-
-				int tab = line.IndexOf('\t');
-				if (tab < 0) {
-					throw InvalidAdvertisement(line);
-				}
-
-				string name = line.Substring(tab + 1);
-				ObjectId id = ObjectId.FromString(line.Slice(0, tab));
-				if (name.EndsWith("^{}")) {
-					name = name.Slice(0, name.Length - 3);
-					Ref prior = avail.get(name);
-					if (prior == null) {
-						throw OutOfOrderAdvertisement(name);
-					}
-
-					if (prior.PeeledObjectId != null) {
-						throw DuplicateAdvertisement(name + "^{}");
-					}
-
-					avail.put(name, new PeeledTag(Storage.Network, name, prior.ObjectId, id));
-				}
-				else {
-					Ref prior = avail.put(name, new PeeledNonTag(Storage.Network, name, id));
-
-					if (prior != null) {
-						throw DuplicateAdvertisement(name);
-					}
-				}
-			}
-			return avail;
-		}*/
-
-		private static PackProtocolException OutOfOrderAdvertisement(string n) {
-			return new PackProtocolException("advertisement of " + n + "^{} came before " + n);
-		}
-
 		private static PackProtocolException InvalidAdvertisement(string n) {
 			return new PackProtocolException("invalid advertisement of " + n);
-		}
-
-		private static PackProtocolException DuplicateAdvertisement(string n) {
-			return new PackProtocolException("duplicate advertisements of " + n);
 		}
 
 		public override void close() {
