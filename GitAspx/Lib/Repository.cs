@@ -91,7 +91,7 @@ namespace GitAspx.Lib {
 		public void UpdateServerInfo() {
 			using (var rep = GetRepository()) {
 				if (rep.ObjectDatabase is ObjectDirectory) {
-					RefWriter rw = new MockRefWriter(rep, rep.getAllRefs().Values);
+					RefWriter rw = new SimpleRefWriter(rep, rep.getAllRefs().Values);
 					rw.writePackedRefs();
 					rw.writeInfoRefs();
 
