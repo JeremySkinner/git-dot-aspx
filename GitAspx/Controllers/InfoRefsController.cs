@@ -20,6 +20,7 @@
 
 namespace GitAspx.Controllers {
 	using System.IO;
+	using System.Text;
 	using System.Web.Mvc;
 	using GitAspx.Lib;
 
@@ -47,6 +48,11 @@ namespace GitAspx.Controllers {
 		ActionResult SmartInfoRefs(string service, string project) {
 			Response.ContentType = "application/x-git-{0}-advertisement".With(service);
 			Response.WriteNoCache();
+
+			// Explicitly set the charset to empty string 
+			// We do this as certain git clients (jgit) require it to be empty.
+			// If we don't set it, then it defaults to utf-8, which breaks jgit's logic for detecting smart http
+			Response.Charset = ""; 
 
 			var repository = repositories.GetRepository(project);
 

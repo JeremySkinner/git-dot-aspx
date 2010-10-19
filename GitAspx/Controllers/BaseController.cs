@@ -32,7 +32,7 @@ namespace GitAspx.Controllers {
 
 		protected string PktWrite(string input, params object[] args) {
 			input = string.Format(input, args);
-			return (input.Length + 4).ToString("X").PadLeft(4, '0') + input;
+			return (input.Length + 4).ToString("x").PadLeft(4, '0') + input;
 		}
 
 		protected string ReadBody() {
