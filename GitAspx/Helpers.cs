@@ -32,17 +32,6 @@ namespace GitAspx {
 			                          urlHelper.RequestContext.HttpContext.Request.Url.Host);
 		}
 
-		public static string GetDescription(this Enum e) {
-			var field = e.GetType().GetField(e.ToString());
-			var attributes = (DescriptionAttribute[]) field.GetCustomAttributes(typeof (DescriptionAttribute), false);
-
-			if (attributes.Length > 0) {
-				return attributes[0].Description;
-			}
-
-			return e.ToString();
-		}
-
 		public static string ToPrettyDateString(this DateTime d) {
 			TimeSpan s = DateTime.Now.Subtract(d);
 			int dayDiff = (int)s.TotalDays;
@@ -79,6 +68,7 @@ namespace GitAspx {
 
 			return null;
 		}
+
 
 		public static string With(this string format, params string[] args) {
 			return string.Format(format, args);
