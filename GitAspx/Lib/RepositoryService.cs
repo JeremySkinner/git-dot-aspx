@@ -21,7 +21,6 @@
 namespace GitAspx.Lib {
 	using System.Collections.Generic;
 	using System.IO;
-	using GitSharp.Commands;
 	using System.Linq;
 
 	public class RepositoryService {
@@ -60,12 +59,9 @@ namespace GitAspx.Lib {
 			if (!Directory.Exists(directory)) {
 				Directory.CreateDirectory(directory);
 
-				var cmd = new InitCommand {
-					GitDirectory = directory,
-					Quiet = false,
-					Bare = true
-				};
-				cmd.Execute();
+				using(var repository = new GitSharp.Core.Repository(new DirectoryInfo(directory))) {
+					repository.Create(true);
+				}
 			}
 		}
 	}
