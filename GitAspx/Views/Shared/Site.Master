@@ -1,4 +1,5 @@
 ﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+<%@ Import Namespace="GitAspx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -18,7 +19,7 @@
         
         </asp:ContentPlaceHolder>
 		<div id="footer">
-			<a href="http://github.com/JeremySkinner/git-dot-aspx">Powered by GitAspx</a>
+			<a href="http://github.com/JeremySkinner/git-dot-aspx">Powered by GitAspx v<%= Helpers.Version %></a>
 		</div>
     </div>
 </body>

@@ -26,6 +26,16 @@ namespace GitAspx {
 	using System.Web.Routing;
 
 	public static class Helpers {
+		static readonly string version;
+
+		static Helpers() {
+			version = typeof(Helpers).Assembly.GetName().Version.ToString();
+		}
+
+		public static string Version {
+			get { return version;}
+		}
+
 		public static string ProjectUrl(this UrlHelper urlHelper, string project) {
 			return urlHelper.RouteUrl("project", new RouteValueDictionary(new {project}),
 			                          urlHelper.RequestContext.HttpContext.Request.Url.Scheme,
