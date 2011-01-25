@@ -1,0 +1,21 @@
+﻿@using GitAspx;
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>@ViewBag.Title</title>
+	<link rel="Stylesheet" type="text/css" href="@Url.Content("~/Content/Site.css")" />
+	<!--[if IE 7]> <style type="text/css">@@import "@Url.Content("~/Content/IE7-override.css")";</style> <![endif]-->
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.4.4.min.js")"></script>
+	<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.modal.js")"></script>
+</head>
+<body>
+    <div>
+        @RenderBody()
+		
+        <div id="footer">
+			<a href="http://github.com/JeremySkinner/git-dot-aspx">Powered by GitAspx @Helpers.Version</a>
+		</div>
+    </div>
+</body>
+</html>
