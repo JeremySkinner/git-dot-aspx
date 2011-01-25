@@ -2,8 +2,10 @@ namespace GitAspx.Controllers {
 	using System;
 	using System.IO;
 	using System.Web.Mvc;
+	using System.Web.SessionState;
 	using GitAspx.Lib;
 
+	[SessionState(SessionStateBehavior.Disabled)]
 	public class DumbController : BaseController {
 		readonly RepositoryService repositories;
 

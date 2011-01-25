@@ -22,10 +22,12 @@ namespace GitAspx.Controllers {
 	using System;
 	using System.IO;
 	using System.Web.Mvc;
+	using System.Web.SessionState;
 	using GitAspx.Lib;
 	using ICSharpCode.SharpZipLib.GZip;
 
 	// Handles project/git-upload-pack and project/git-receive-pack
+	[SessionState(SessionStateBehavior.Disabled)]	
 	public class RpcController : BaseController {
 		readonly RepositoryService repositories;
 

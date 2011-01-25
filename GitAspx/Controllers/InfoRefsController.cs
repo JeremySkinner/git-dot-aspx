@@ -22,9 +22,11 @@ namespace GitAspx.Controllers {
 	using System.IO;
 	using System.Text;
 	using System.Web.Mvc;
+	using System.Web.SessionState;
 	using GitAspx.Lib;
 
 	// Handles /project/info/refs
+	[SessionState(SessionStateBehavior.Disabled)]
 	public class InfoRefsController : BaseController {
 		readonly RepositoryService repositories;
 
