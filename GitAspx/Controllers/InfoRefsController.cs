@@ -60,8 +60,8 @@ namespace GitAspx.Controllers {
 				return new NotFoundResult();
 			}
 
-			Response.Write(PktWrite("# service=git-{0}\n", service));
-			Response.Write(PktFlush());
+			Response.PktWrite("# service=git-{0}\n", service);
+			Response.PktFlush();
 
 			if (service == "upload-pack") {
 				repository.AdvertiseUploadPack(Response.OutputStream);

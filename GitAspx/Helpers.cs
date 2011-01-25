@@ -89,5 +89,15 @@ namespace GitAspx {
 			response.AddHeader("Pragma", "no-cache");
 			response.AddHeader("Cache-Control", "no-cache, max-age=0, must-revalidate");
 		}
+
+		public static void PktWrite(this HttpResponseBase response, string input, params object[] args) {
+			input = string.Format(input, args);
+			var toWrite = (input.Length + 4).ToString("x").PadLeft(4, '0') + input;
+			response.Write(toWrite);
+		}
+
+		public static void PktFlush(this HttpResponseBase response) {
+			response.Write("0000");
+		}
 	}
 }

@@ -20,25 +20,12 @@
 
 namespace GitAspx.Controllers {
 	using System.IO;
+	using System.Web;
 	using System.Web.Mvc;
 	using GitAspx.Lib;
 
 	public class BaseController : Controller {
 		public AppSettings AppSettings { get; set; }
-
-		protected string PktFlush() {
-			return "0000";
-		}
-
-		protected string PktWrite(string input, params object[] args) {
-			input = string.Format(input, args);
-			return (input.Length + 4).ToString("x").PadLeft(4, '0') + input;
-		}
-
-		protected string ReadBody() {
-			var reader = new StreamReader(Request.InputStream);
-			return reader.ReadToEnd();
-		}
 
 		protected bool HasAccess(string rpc, bool checkContentType = false) {
 			if (checkContentType && Request.ContentType != string.Format("application/x-git-{0}-request", rpc)) {
