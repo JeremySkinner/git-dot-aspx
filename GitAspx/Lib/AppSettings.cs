@@ -37,6 +37,10 @@ namespace GitAspx.Lib {
 				throw new InvalidOperationException("The 'Repositories' AppSetting has not been initialised.");
 			}
 
+            if (path.StartsWith("~/")){
+                path = System.Web.HttpContext.Current.Server.MapPath(path);
+            }
+
 			if (!Directory.Exists(path)) {
 				throw new DirectoryNotFoundException(
 					string.Format("Could not find the directory '{0}' which is configured as the directory of repositories.", path));
