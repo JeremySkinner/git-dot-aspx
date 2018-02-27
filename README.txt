@@ -1,5 +1,7 @@
 This is a simple implementation of git-http-backend written in ASP.NET that can be used to read/write git repositories on Windows with IIS.
 
+** This was an experimental project that is no longer maintained, developed or supported. Please feel free to use the code but no further changes will be made and pull requests will not be merged in **
+
 Inspired by Grack (http://github.com/schacon/grack)
 
 This is largely untested, but has been developed with IIS7.5 under Windows 7 x64. 
